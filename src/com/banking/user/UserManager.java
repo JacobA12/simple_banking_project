@@ -1,7 +1,12 @@
 package com.banking.user;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Base64;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 public class UserManager {
     private Map<String, User> users;
 
