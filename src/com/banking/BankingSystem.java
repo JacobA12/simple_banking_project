@@ -2,9 +2,28 @@ package com.banking;
 import java.util.Scanner;
 public class BankingSystem {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String userResponse = "";
-        System.out.println("1. Login\n2.Sign Up");
+        Bank bank = new Bank();
+
+        bank.registerUser("john_doe", "password123");
+        bank.registerUser("john_doe", "password1234");
+        boolean isAuthenticated = bank.authenticateUser("john_doe", "password123");
+        boolean isAuthenticated2 = bank.authenticateUser("john_doe", "password1234");
+
+        if (isAuthenticated){
+            System.out.println("User Authenticated Successfully");
+            int accountNumber = bank.createAccount("john_doe","password123", "John Doe");
+            System.out.println("Account created with number: " + accountNumber);
+        }else{
+            System.out.println("Authentication Failed");
+
+        }if (isAuthenticated2){
+            System.out.println("User Authenticated Successfully");
+            int accountNumber = bank.createAccount("john_doe","password1234", "john_doe");
+            System.out.println("Account created with number: " + accountNumber);
+        }else{
+            System.out.println("Authentication Failed");
+        }
+
 
     }
 }
