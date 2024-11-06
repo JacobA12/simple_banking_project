@@ -3,36 +3,38 @@ package com.banking;
 import java.math.BigDecimal;
 
 public class Account {
-    private String ownerName;
     private int accountNumber;
+    private String accountHolder;
     private BigDecimal balance;
 
-    public Account(String ownerName, int accountNumber) {
-        this.ownerName = ownerName;
+    public Account(int accountNumber, String accountHolder){
         this.accountNumber = accountNumber;
-        this.balance = new BigDecimal("0");
+        this.accountHolder=accountHolder;
+        this.balance = new BigDecimal("0.0");
     }
 
     public int getAccountNumber() {
         return accountNumber;
     }
 
-    public void deposit(BigDecimal amount) {
+    public String getAccountHolder() {
+        return accountHolder;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void deposit(BigDecimal amount){
         balance = balance.add(amount);
     }
 
-    public boolean withdraw(BigDecimal amount) {
-        if (balance.compareTo(amount) == 1) {
+    public boolean withdraw(BigDecimal amount){
+        if(balance.compareTo(amount) >= 0){
             balance = balance.subtract(amount);
             return true;
-        } else {
+        }else{
             return false;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "ownerName='" + ownerName + '\'' + ", accountNumber=" + accountNumber + ", balance=" + balance + '}';
     }
 }

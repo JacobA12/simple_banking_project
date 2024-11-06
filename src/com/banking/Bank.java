@@ -5,29 +5,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bank {
-    private String bankName;
+    private static int nextAccountNumber = 1000;
     private Map<Integer, Account> accounts;
 
-    public Bank(String name){
-        this.name = name;
-        this.accounts= new HashMap<>();
+    public Bank(){
+        this.accounts = new HashMap<>();
     }
 
-    public void addAccount(Account account){
-
+    public int createAccount(String accountHolder){
+        int accountNumber = nextAccountNumber++;
+        Account newAccount = new Account(accountNumber, accountHolder);
+        accounts.put(accountNumber, newAccount);
+        return accountNumber;
     }
 
-    public void deposit(int accountNumber, BigDecimal amount){
-
+    public Account getAccount(int accountNumber){
+        return accounts.get(accountNumber);
     }
 
-    public void withdraw(int accountNumber, BigDecimal amount){
-
+    public void deleteAccount(int accountNumber){
+        accounts.remove(accountNumber);
     }
 
-    public void getAccountInfo(int accountNumber){
-
-    }
 
 
 }
