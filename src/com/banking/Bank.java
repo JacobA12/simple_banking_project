@@ -15,23 +15,19 @@ public class Bank {
         this.userManager = new UserManager();
     }
 
-    public boolean registerUser(String username, String password) {
-        return userManager.registerUser(username, password);
-    }
-
-    public boolean authenticateUser(String username, String password) {
-
-        return userManager.authenticateUser(username, password);
-    }
-
-    public int createAccount(String username, String password, String accountHolder) {
-        if (!userManager.authenticateUser(username, password)) {
-            throw new IllegalStateException("User not authenticated");
+    public int registerAndCreateAccount(String username, String password, String accountHolder) {
+        if (!userManager.registerUser(username, password)) {
+            throw new IllegalStateException("User registration failed or user already exists");
         }
         int accountNumber = nextAccountNumber++;
         Account newAccount = new Account(accountNumber, accountHolder);
         accounts.put(accountNumber, newAccount);
         return accountNumber;
+    }
+
+    public boolean authenticateUser(String username, String password) {
+
+        return userManager.authenticateUser(username, password);
     }
 
     public Account getAccount(int accountNumber) {

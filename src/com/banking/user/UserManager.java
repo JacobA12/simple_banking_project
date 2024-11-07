@@ -1,7 +1,10 @@
 package com.banking.user;
+
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Base64;
+
 public class UserManager {
     private Map<String, User> users;
 
@@ -13,7 +16,9 @@ public class UserManager {
         if(users.containsKey(username)){
             return false;
         }
-        User newUser = new User(username, password);
+        String salt = generateSalt();
+        String hashedPassword = hashPassword(password, salt);
+        User newUser = new User(username, hashedPassword, salt);
         users.put(username, newUser);
         return true;
     }
@@ -27,8 +32,14 @@ public class UserManager {
         return hashedPassword.equals(user.getHashedPassword());
     }
 
-    private String hashPassword(String password, String salt){
+    public String hashPassword(String password, String salt){
         return Base64.getEncoder().encodeToString((password+salt).getBytes());
     }
 
+    private String generateSalt(){
+        SecureRandom random = new SecureRandom();
+        byte[] saltBytes = new byte[16];
+        random.nextBytes(saltBytes);
+        return Base64.getEncoder().encodeToString(saltBytes);
+    }
 }

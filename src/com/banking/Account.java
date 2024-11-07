@@ -7,9 +7,9 @@ public class Account {
     private String accountHolder;
     private BigDecimal balance;
 
-    public Account(int accountNumber, String accountHolder){
+    public Account(int accountNumber, String accountHolder) {
         this.accountNumber = accountNumber;
-        this.accountHolder=accountHolder;
+        this.accountHolder = accountHolder;
         this.balance = new BigDecimal("0.0");
     }
 
@@ -25,15 +25,15 @@ public class Account {
         return balance;
     }
 
-    public void deposit(BigDecimal amount){
+    public void deposit(BigDecimal amount) {
         balance = balance.add(amount);
     }
 
-    public boolean withdraw(BigDecimal amount){
-        if(balance.compareTo(amount) >= 0){
+    public boolean withdraw(BigDecimal amount) {
+        if (balance.compareTo(amount) >= 0) {
             balance = balance.subtract(amount);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
